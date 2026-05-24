@@ -4,41 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./style.css" />
-    <title>Rock paper and scissors</title>
+    <title>Rock Paper Scissors</title>
   </head>
   <body>
     <section class="game">
+
+      <!-- Scoreboard -->
       <div class="score">
-        <div class="player-score">
-          <h2>Player</h2>
-          <p>0</p>
+        <div class="score-card player-score">
+          <span class="score-label">YOU</span>
+          <span class="score-value" id="player-score">0</span>
         </div>
-        <div class="computer-score">
-          <h2>Computer</h2>
-          <p>0</p>
+        <div class="score-divider">VS</div>
+        <div class="score-card computer-score">
+          <span class="score-label">CPU</span>
+          <span class="score-value" id="computer-score">0</span>
         </div>
       </div>
 
-      <div class="intro">
-        <h1>Rock Paper and Scissors</h1>
-        <button>Let's Play</button>
+      <!-- Intro Screen -->
+      <div class="intro fadeIn" id="intro">
+        <div class="intro-icon">✊</div>
+        <h1>Rock<br/>Paper<br/>Scissors</h1>
+        <button class="btn-primary" id="play-btn">Let's Play!</button>
       </div>
 
-      <div class="match fadeOut">
-        <h2 class="winner">Choose an option</h2>
+      <!-- Match Screen -->
+      <div class="match fadeOut" id="match">
+        <h2 class="winner" id="winner-text">Choose your move</h2>
+
         <div class="hands">
-          <img class="player-hand" src="./assets/rock.png" alt="" />
-          <img class="computer-hand" src="./assets/rock.png" alt="" />
+          <div class="hand-wrap">
+            <span class="hand-label">You</span>
+            <img class="player-hand" id="player-hand" src="./assets/rock.png" alt="Player's hand" />
+          </div>
+          <div class="hand-wrap">
+            <span class="hand-label">CPU</span>
+            <img class="computer-hand" id="computer-hand" src="./assets/rock.png" alt="Computer's hand" />
+          </div>
         </div>
-        <div class="options">
-          <button class="rock">rock</button>
-          <button class="paper">paper</button>
-          <button class="scissors">scissors</button>
-        </div>
-      </div>
-    </section>
 
-    <script src="app.js"></script>
+        <div class="options" id="options">
+          <button class="option-btn rock" data-choice="rock" aria-label="Rock">
+            <span class="option-icon">✊</span>
+            <span class="option-label">Rock</span>
+          </button>
+          <button class="option-btn paper" data-choice="paper" aria-label="Paper">
+            <span class="option-icon">✋</span>
+            <span class="option-label">Paper</span>
+          </button>
+          <button class="option-btn scissors" data-choice="scissors" aria-label="Scissors">
+            <span class="option-icon">✌️</span>
+            <span class="option-label">Scissors</span>
+          </button>
+        </div>
+
+        <button class="btn-reset" id="reset-btn" title="Reset Scores">↺ Reset Scores</button>
+      </div>
+
+    </section>
+    <script src="./app.js"></script>
   </body>
 </html>
