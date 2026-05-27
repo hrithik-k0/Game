@@ -85,7 +85,11 @@ jobs:
  
       - name: Show deployment info
         run: |
-          Write-Host "✅ Deployment successful!"
-          kubectl get pods -l app=rps-game
-          Write-Host "🌐 Access your app:"
-          minikube service rps-game-service --url
+           Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+           Write-Host "✅ Deployment successful!"
+           Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+           kubectl get pods -l app=rps-game
+           Write-Host ""
+           Write-Host "🌐 To access your app, run this in a new terminal:"
+           Write-Host "   kubectl port-forward service/rps-game-service 8080:80"
+           Write-Host "   Then open: http://localhost:8080"
