@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rps-game
+  namespace: default
+  labels:
+    app: rps-game
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rps-game
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0        # Zero downtime deploy
+  template:
+    metadata:
+      labels:
+        app: rps-game
+    spec:
+      containers:
+        - name: rps-game
+          image: hk00d/rps-game:latest   # ← update this
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
