@@ -6,7 +6,7 @@ metadata:
   labels:
     app: rps-game
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: rps-game
