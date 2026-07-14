@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "hk00d/devops-app"
+        DOCKER_IMAGE = "hk00d/rps-game"
     }
 
     stages {
         stage('Clone Code') {
             steps {
-                git 'https://github.com/hrithik-k0/DevOps-project.git'
+                git 'https://github.com/hrithik-k0/Game.git'
             }
         }
 
