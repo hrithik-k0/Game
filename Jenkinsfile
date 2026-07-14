@@ -8,10 +8,13 @@ pipeline {
 
     stages {
         stage('Clone Code') {
-            steps {
-                git 'https://github.com/hrithik-k0/Game.git'
-            }
-        }
+    steps {
+        cleanWs()
+
+        git branch: 'main',
+            url: 'https://github.com/hrithik-k0/Game.git'
+    }
+}
 
         stage('Build Docker Image') {
             steps {
