@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "hk00d/rps-game"
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -14,7 +15,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE .'
+                sh 'docker build -t $DOCKER_IMAGE:$IMAGE_TAG .'
             }
         }
 
@@ -28,13 +29,17 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                sh 'docker push $DOCKER_IMAGE'
+                sh 'docker push $DOCKER_IMAGE:$IMAGE_TAG'
             }
         }
-         
-         stage('Deploy to K3s') {
+
+        stage('Deploy to K3s') {
             steps {
                 sh '''
+                export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+
+                sed -i "s|image:.*|image: hk00d/rps-game:$IMAGE_TAG|" Deployment.yaml
+
                 kubectl apply -f Deployment.yaml
                 kubectl apply -f service.yaml
                 '''
@@ -44,6 +49,7 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 sh '''
+                export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
                 kubectl get pods
                 kubectl get svc
                 '''
